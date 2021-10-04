@@ -69,7 +69,7 @@ class Haushalt(models.Model):
 
 # Modelle für den KFA
 
-class Steuerkraft(models):
+class Steuerkraft(models.Model):
 # Datenhaltung der Steuerkraftzahlen
 	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
 	haushaltsjahr = models.IntegerField()
@@ -80,7 +80,7 @@ class Steuerkraft(models):
 	stk_usteuer = models.IntegerField()
 	stk_ausgl = models.IntegerField()
 
-class Steuerkraftgrunddaten(models):
+class Steuerkraftgrunddaten(models.Model):
     # Datenhaltung für die Steuerkraftberechnung. Herleitung der Steuerkraftzahlen aus den Werten der vierteljährlichen Finanzstatistik
 	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
 	haushaltsjahr = models.IntegerField()
@@ -140,7 +140,7 @@ class Steuerkraftgrunddaten(models):
 	ist3_ausgl = models.IntegerField()
 	ist4vj_ausgl = models.IntegerField()
 
-class SchluesselzuweisungA(models):
+class SchluesselzuweisungA(models.Model):
     """
     Verlauf der Schlüsselzuweisungen A
     """
@@ -154,13 +154,13 @@ class SchluesselzuweisungA(models):
     diff_stkproewschwellenwert = models.DecimalField(max_digits=11, decimal_places=2)
     schluesselzuw = models.IntegerField()
 
-class SchluesselzuweisungB1(models):
+class SchluesselzuweisungB1(models.Model):
 	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
 	haushaltsjahr = models.IntegerField()
 	szb1_satz = models.DecimalField(max_digits=11, decimal_places=2)
 	szb1_betrag = models.IntegerField()
 
-class SchluesselzuweisungB2(models):
+class SchluesselzuweisungB2(models.Model):
 	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
 	haushaltsjahr = models.IntegerField()
 
