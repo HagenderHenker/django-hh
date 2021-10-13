@@ -2,6 +2,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from hhapp.models import Haushalt
+
 
 # Create your views here.
 
@@ -27,11 +29,27 @@ def userlogout(request):
         logout(request)
         return render(request, 'user/userlogout.html')
 
-    elif request == "GET":
+    elif request == 'GET':
         return HttpResponse("GetRequest")
     
     else:
         print("fuck you cheater")
         return HttpResponse("fuck you cheater")
+
+def usersetsessionhh(request):
+    
+    if request.method == 'POST':
+        request.session['hh'] = request.POST['hh-id']
+        request.session['hhgemeinde'] = request.POST['hh-gemeinde']
+        request.session['hhjahr'] = request.POST['hh-jahr']
+        request.session['hhnt'] = request.POST['hh-nt']
+        
+        print(list(request))
+        return redirect('home')
+    else:
+        hhliste = Haushalt.objects.all()
+        context = { 'liste' : hhliste}
+        return render(request, 'user/hhauswahl.html', context)
+
 
     

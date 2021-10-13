@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Upload der Haushaltsdaten</h3>
+
+<p>Hier können die Dateien aus MPS Nf - in Form von exportierten csv dateien - hochladen.</p>
+<p>Die Haushaltsdaten kopieren Sie bitte aus MPS Nf/Doppische Planung/Planerfassungsmatrix aus dem Spaltenlayout "Planung" </p>
+
+<form method = "POST" enctype ="multipart/form-data" action="">
+{% csrf_token %}
+
+<input type="file" name="document">
+
+<button type = "submit" class = "btn-outline-dark">Datei hochladen</button>
+
+
+
+</form>
+
+
+
+
+{%endblock%}
