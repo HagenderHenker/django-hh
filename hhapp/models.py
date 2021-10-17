@@ -42,7 +42,10 @@ class DocxTemplates(models.Model):
     def __str__(self):
         return self.bezeichn
 
-
+class Datafiles(models.Model):
+    datafile = models.FileField()
+    datafileuploaddate = models.DateTimeField(auto_now_add=True)
+    
 class Haushalt(models.Model):
     """
     Stammdaten des verwalteten Haushaltsplans.
@@ -58,6 +61,7 @@ class Haushalt(models.Model):
     angelegt = models.DateTimeField(auto_now_add=True)
     doppelhaushalt = models.BooleanField(default=False)
     docxtemplate = models.ForeignKey(DocxTemplates, on_delete=models.CASCADE, blank=True, null=True)
+    datendatei = models.ForeignKey(Datafiles, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         if self.nachtragshaushalt:
