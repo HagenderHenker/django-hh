@@ -24,9 +24,10 @@ urlpatterns = [
 
     path('', views.start, name="start" ),
     path('hhupload/', views.upload, name="hhupload"),
+    path('datafile_list', views.datafile_list, name="datafile_list")
+    
+    
     
 ]
 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

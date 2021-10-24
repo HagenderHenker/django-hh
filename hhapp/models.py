@@ -43,8 +43,14 @@ class DocxTemplates(models.Model):
         return self.bezeichn
 
 class Datafiles(models.Model):
-    datafile = models.FileField()
+    
+    datafilebez = models.CharField(max_length=100)
+    datafile = models.FileField(upload_to='hh/data')
     datafileuploaddate = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.datafilebez} - upload {self.datafileuploaddate}' 
+    
     
 class Haushalt(models.Model):
     """
