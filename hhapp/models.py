@@ -79,16 +79,39 @@ class Haushalt(models.Model):
 
 # Modelle für den KFA
 
+class Berechnungsgrundlagen(models.Model):
+    haushaltsjahr = models.IntegerField(unique=True)
+    nivellierungssatz_GrStA = models.IntegerField()
+    nivellierungssatz_GrStB = models.IntegerField()
+    nivellierungssatz_GewSt = models.IntegerField()
+    landesdurchschnittliche_stk = models.DecimalField(max_digits=8, decimal_places=2)
+    achwellenwertSZA = models.DecimalField(max_digits=8, decimal_places=2)
+    schwellensatzSZA = models.DecimalField(max_digits=5, decimal_places=2)
+    schluesselsatzb1 = models.DecimalField(max_digits=8, decimal_places=2)
+    einheitlgrundbetragb2 = models.DecimalField(max_digits=8, decimal_places=2)
+    einheitlgrundbetragb2inv = models.DecimalField(max_digits=8, decimal_places=2)
+    landesdurchschnGebietsfl = models.DecimalField(max_digits=6, decimal_places=4)
+    landesdurchschnittliche_stkFinAUmlage = models.DecimalField(max_digits=14, decimal_places=2)
+    umlageZVS = models.DecimalField(max_digits=4, decimal_places=2)
+    gewStumlageverf = models.DecimalField(max_digits=5, decimal_places=2)
+     
+
+
 class Steuerkraft(models.Model):
-# Datenhaltung der Steuerkraftzahlen
-	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
-	haushaltsjahr = models.IntegerField()
-	stk_grundsteuera = models.IntegerField()
-	stk_grundsteuerb = models.IntegerField()
-	stk_gewerbesteuer = models.IntegerField()
-	stk_eksteuer = models.IntegerField()
-	stk_usteuer = models.IntegerField()
-	stk_ausgl = models.IntegerField()
+    # Datenhaltung der Steuerkraftzahlen
+	
+    gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
+    haushaltsjahr = models.IntegerField()
+    stk_grundsteuera = models.IntegerField()
+    stk_grundsteuerb = models.IntegerField()
+    stk_gewerbesteuer = models.IntegerField()
+    stk_eksteuer = models.IntegerField()
+    stk_usteuer = models.IntegerField()
+    stk_ausgl = models.IntegerField()
+
+    class Meta:
+        unique_together = ['gemeinde', 'haushaltsjahr']
+        
 
 class Steuerkraftgrunddaten(models.Model):
     # Datenhaltung für die Steuerkraftberechnung. Herleitung der Steuerkraftzahlen aus den Werten der vierteljährlichen Finanzstatistik
@@ -116,7 +139,6 @@ class Steuerkraftgrunddaten(models.Model):
 	ber_grundsteuerb = models.IntegerField()
 	hs_grundsteuerb = models.IntegerField()
 	gz2_grundsteuerb = models.IntegerField()
-
 	ist4vj_grundsteuerb = models.IntegerField()
 	ber_grundsteuerbvj = models.IntegerField()
 	hs_grundsteuerbvj = models.IntegerField()

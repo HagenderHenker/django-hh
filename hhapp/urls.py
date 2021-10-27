@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('', views.start, name="start" ),
     path('hhupload/', views.upload, name="hhupload"),
-    path('datafile_list', views.datafile_list, name="datafile_list")
+    path('datafile_list', views.datafile_listview.as_view(), name="datafile_list")
     
     
     

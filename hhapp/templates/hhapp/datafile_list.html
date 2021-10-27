@@ -1,23 +1,33 @@
 
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-<h1>Liste der hochgeladenen Datendateien formsmethode</h1>
 
-<h3>Upload der Haushaltsdaten</h3>
-
-<p>Hier können die Dateien aus MPS Nf - in Form von exportierten csv dateien - hochladen.</p>
-<p>Die Haushaltsdaten kopieren Sie bitte aus MPS Nf/Doppische Planung/Planerfassungsmatrix aus dem Spaltenlayout "Planung" </p>
-
-<form method = "POST" action="" enctype="multipart/form-data">
-    {%csrf_token%}
-    {{form.as_p}}
-    
-    <button type = "submit" class = "btn btn-outline-dark">Datei hochladen</button>
-
-</form>
+<h3 class="pt-3 mb-5">Liste der hochgeladenen Haushaltsdaten</h3>
 
 
+{% if datafiles %}
+    <table class="table table-striped">
+    {% for datafile in datafiles %}
+        <tr>  
+            <form method = "POST" action="" enctype="multipart/form-data">
+                <td>{{datafile.datafilebez}}</td>  
+                <td>{{datafile.datafileuploaddate}} </td>
+                <td>{{datafile.datafile}}</td>
+                <td><input type="hidden" value="{{datafile.id}}">
+                <button type = "submit" class = "btn btn-outline-dark">Datei hochladen</button></td>
+            </form>
+        
+        </tr>
+    {%endfor%}
+    </table>
+{% else %}
+        <p>
+            keine Daten 
+        </p>
 
+{% endif%}
 
 {%endblock%}

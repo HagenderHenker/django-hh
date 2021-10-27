@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+from .models import Datafiles
 from .forms import Datafile_form
 from django.views.generic import ListView
 
@@ -34,7 +35,15 @@ def upload(request):
 
 
 class datafile_listview(ListView):
-    pass
+    model = Datafiles
+    template_name = 'hhapp/datafile_list.html'
+    context_object_name = 'datafiles'
+    
+    def post(self, request, pk=None):
+        print(self)
+        print(request)
+        print(pk)
+        return redirect('home')
 
 def datafile_list(request):
     
