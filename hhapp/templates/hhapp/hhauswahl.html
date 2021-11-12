@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Auswahl des Haushaltsplans der bearbeitet werden soll</h1>
+
+<table class="table table-striped">
+    <tr style="border-bottom: solid;">
+        <td ><b>Haushalts ID</b></td>
+        <td ><b>GemeindeNr</b></td>  
+        <td ><b>Gemeinde </b></td> 
+        <td ><b>Nachtrag</b></td> 
+        <td ><b>Nachtragsnummer</b></td>  
+        
+</form>
+    {% for hh in liste %}
+        <form action="" method="post"> 
+            {%csrf_token%}
+            <tr>
+                <td >{{hh.id}}<input type="hidden" name="hh-id" value={{hh.id}}></td>
+                <td >{{hh.gemeinde}}<input type="hidden" name="hh-gemeinde" value={{hh.gemeinde}}></td>  
+                <td >{{hh.haushaltsjahr}}<input type="hidden" name="hh-jahr" value={{hh.haushaltsjahr}}></td> 
+                <td >{{hh.nachtragshaushalt}}<input type="hidden" name="hh-nt" value={{hh.nachtragshaushalt}}></td> 
+                <td >{{hh.nachtragsnummer}}<input type="hidden" name="hh-ntnr" value={{hh.nachtragsnummer}}></td>  
+                <td><button type = "submit"class = "btn btn-outline-dark">ändern</button></td> 
+        </form>
+    {%endfor%}
+
+</table>
+
+{% endblock content %}

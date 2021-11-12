@@ -77,7 +77,18 @@ class Haushalt(models.Model):
         rueck = str(self.gemeinde) + "-" + str(self.haushaltsjahr) + nt
         return rueck
 
+# Modelle für die Haushaltssatzung
+
+class Abgaben(models.Model):
+    haushalt = models.ForeignKey(Haushalt, on_delete=models.CASCADE)
+    gliederung = models.IntegerField()
+    text = models.CharField(max_length=200)
+    abgabesatz = models.DecimalField(max_digits=11, decimal_places=2)
+    einheit = models.CharField(max_length=50)
+
+
 # Modelle für den KFA
+
 
 class Berechnungsgrundlagen(models.Model):
     haushaltsjahr = models.IntegerField(unique=True)
@@ -238,11 +249,15 @@ tilgung = models.DecimalField(max_digits=11, decimal_places=2)
 
 
 class Investitionsentwicklung(models.Model):
-	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE,)
-	haushaltsjahr = models.IntegerField()
-planinv = models.DecimalField(max_digits=11, decimal_places=2)
-istinv = models.DecimalField(max_digits=11, decimal_places=2)
-afa = models.DecimalField(max_digits=11, decimal_places=2)
+    """
+    Kennzahlen zu den Investitionen Statistik und Zeitreihenvergleich
+    """
+    
+    gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE,)
+    haushaltsjahr = models.IntegerField()
+    planinv = models.DecimalField(max_digits=11, decimal_places=2)
+    istinv = models.DecimalField(max_digits=11, decimal_places=2)
+    afa = models.DecimalField(max_digits=11, decimal_places=2)
 
 
 # Modelle für einzelen Einnahmearten

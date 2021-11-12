@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Auswahl des Haushaltsplans der bearbeitet werden soll</h1>
+<h1 class = "title mb-3">Auswahl des Haushaltsplans der bearbeitet werden soll</h1>
 
-<table style="border-style: solid;">
-    <tr style="border-bottom: solid;">
-        <td style ="border-right: solid;"><b>Haushalts ID</b></td>
-        <td style ="border-right: solid;"><b>GemeindeNr</b></td>  
-        <td style ="border-right: solid;"><b>Gemeinde </b></td> 
-        <td style ="border-right: solid;"><b>Nachtrag</b></td> 
-        <td style ="border-right: solid;"><b>Nachtragsnummer</b></td>  
-        
-</form>
+<table class = "table table-striped">
+
+    <tr>
+        <td><b>Haushalts ID</b></td>
+        <td><b>GemeindeNr</b></td>  
+        <td><b>Haushaltsjahr </b></td> 
+        <td><b>Nachtrag</b></td> 
+        <td><b>Nachtragsnummer</b></td> 
+        <td><b></b></td>  
+    </tr>   
+
     {% for hh in liste %}
         <form action="" method="post"> 
             {%csrf_token%}
             <tr>
-                <td style ="border-right: solid;">{{hh.id}}<input type="hidden" name="hh-id" value={{hh.id}}></td>
-                <td style ="border-right: solid;">{{hh.gemeinde}}<input type="hidden" name="hh-gemeinde" value={{hh.gemeinde}}></td>  
-                <td style ="border-right: solid;">{{hh.haushaltsjahr}}<input type="hidden" name="hh-jahr" value={{hh.haushaltsjahr}}></td> 
-                <td style ="border-right: solid;">{{hh.nachtragshaushalt}}<input type="hidden" name="hh-nt" value={{hh.nachtragshaushalt}}></td> 
-                <td style ="border-right: solid;">{{hh.nachtragsnummer}}<input type="hidden" name="hh-ntnr" value={{hh.nachtragsnummer}}></td>  
+                <td>{{hh.id}}<input type="hidden" name="hh-id" value={{hh.id}}></td>
+                <td>{{hh.gemeinde}}<input type="hidden" name="hh-gemeinde" value={{hh.gemeinde}}></td>  
+                <td>{{hh.haushaltsjahr}}<input type="hidden" name="hh-jahr" value={{hh.haushaltsjahr}}></td> 
+                <td>{{hh.nachtragshaushalt}}<input type="hidden" name="hh-nt" value={{hh.nachtragshaushalt}}></td> 
+                <td>{{hh.nachtragsnummer}}<input type="hidden" name="hh-ntnr" value={{hh.nachtragsnummer}}></td>  
                 <td><button type = "submit"class = "btn-outline-dark">auswählen</button></td> 
+            </tr>
         </form>
     {%endfor%}
 

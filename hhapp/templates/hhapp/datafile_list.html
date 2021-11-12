@@ -11,15 +11,17 @@
 {% if datafiles %}
     <table class="table table-striped">
     {% for datafile in datafiles %}
+   
         <tr>  
             <form method = "POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
                 <td>{{datafile.datafilebez}}</td>  
                 <td>{{datafile.datafileuploaddate}} </td>
                 <td>{{datafile.datafile}}</td>
-                <td><input type="hidden" value="{{datafile.id}}">
-                <button type = "submit" class = "btn btn-outline-dark">Datei hochladen</button></td>
-            </form>
-        
+                <td><input type="hidden" value="{{datafile.id}}" name="pk">
+                    <input type="hidden" value="{{datafile.datafilebez}}" name="dfbez">
+                    <button type = "submit" class = "btn btn-outline-dark">auswählen</button></td>
+            </form>        
         </tr>
     {%endfor%}
     </table>

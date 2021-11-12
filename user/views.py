@@ -39,13 +39,17 @@ def userlogout(request):
 def usersetsessionhh(request):
     
     if request.method == 'POST':
+        print(request.POST)
         request.session['hh'] = request.POST['hh-id']
         request.session['hhgemeinde'] = request.POST['hh-gemeinde']
+        request.session['hhgdenr'] = Haushalt.objects.get(id=request.POST['hh-id']).gemeinde.gemeindenummer
         request.session['hhjahr'] = request.POST['hh-jahr']
         request.session['hhnt'] = request.POST['hh-nt']
         
         print(list(request))
+        print(request.session['hhgdenr'])
         return redirect('home')
+    
     else:
         hhliste = Haushalt.objects.all()
         context = { 'liste' : hhliste}

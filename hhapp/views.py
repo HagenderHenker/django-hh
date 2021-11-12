@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
-from .models import Datafiles
+from .models import Datafiles, Haushalt
 from .forms import Datafile_form
 from django.views.generic import ListView
 
@@ -9,6 +9,7 @@ from django.views.generic import ListView
 def start(request):
     return render(request, "hhapp/hh.html")
 
+# Steuerungseinträge
 
 def upload(request):
     # if request.method == "POST":
@@ -39,11 +40,12 @@ class datafile_listview(ListView):
     template_name = 'hhapp/datafile_list.html'
     context_object_name = 'datafiles'
     
-    def post(self, request, pk=None):
-        print(self)
-        print(request)
-        print(pk)
+    def post(self, request, *args, **kwargs):
+        print(request.__dict__)
+        request.session["datafile"] = request._post["pk"]
+        request.session["datafilebez"] = request._post["dfbez"]
         return redirect('home')
+
 
 def datafile_list(request):
     
@@ -57,6 +59,27 @@ def datafile_list(request):
         if form.is_valid():
             form.save()
             return redirect('home')
+
+# Haushaltsgrunddaten
+
+def haushaltsgrunddaten(request):
+    
+    if request.method == "GET":
+        gde = request.session["hhgdenr"] 
+        jahr = request.session["hhjahr"]       
+        hhliste = Haushalt.objects.filter(gemeinde__exact=gde).filter(haushaltsjahr__exact=jahr)
+        context = { 'liste' : hhliste}
+        return render(request, 'hhapp/hhauswahl.html', context)
+    
+    
+
+
+# Kommunaler Finanzausgleich
+
+
+
+
+# 
     
 
 

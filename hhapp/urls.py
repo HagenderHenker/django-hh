@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('', views.start, name="start" ),
     path('hhupload/', views.upload, name="hhupload"),
+    path('hhgrunddaten', views.haushaltsgrunddaten, name='haushaltsgrunddaten'),
     path('datafile_list', views.datafile_listview.as_view(), name="datafile_list")
     
     
