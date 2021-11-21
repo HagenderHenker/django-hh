@@ -105,6 +105,9 @@ class Berechnungsgrundlagen(models.Model):
     landesdurchschnittliche_stkFinAUmlage = models.DecimalField(max_digits=14, decimal_places=2)
     umlageZVS = models.DecimalField(max_digits=4, decimal_places=2)
     gewStumlageverf = models.DecimalField(max_digits=5, decimal_places=2)
+    vgumlage = models.DecimalField(max_digits=5, decimal_places=2)
+    kreisumlage = models.DecimalField(max_digits=5, decimal_places=2)
+    
      
 
 
@@ -206,6 +209,14 @@ class SchluesselzuweisungB1(models.Model):
 class SchluesselzuweisungB2(models.Model):
 	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
 	haushaltsjahr = models.IntegerField()
+    
+class SonderumlageGSgrundlagen(models.Model):
+    haushaltsjahr = models.IntegerField()
+    aufwandschulen = models.IntegerField()
+    zinsaufwand = models.IntegerField()
+    abrechnung = models.IntegerField()
+    umlagesatz = models.DecimalField(max_digits=5, decimal_places=2)
+    
 
 
 # Modelle für Gesamtübersichten
@@ -220,16 +231,19 @@ class Eigenkapital(models.Model):
     veraend = models.DecimalField(max_digits=11, decimal_places=2)
 
 class Ergebnisentwicklung(models.Model):
-	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE,)
-	haushaltsjahr = models.IntegerField()
-ergvw = models.DecimalField(max_digits=11, decimal_places=2)
-ergfin = models.DecimalField(max_digits=11, decimal_places=2)
-ergao = models.DecimalField(max_digits=11, decimal_places=2)
+    gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
+    haushaltsjahr = models.IntegerField()
+    ergvw = models.DecimalField(max_digits=11, decimal_places=2)
+    ergfin = models.DecimalField(max_digits=11, decimal_places=2)
+    ergao = models.DecimalField(max_digits=11, decimal_places=2)
 
 class Finanzentwicklung(models.Model):
-	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE,)
-	haushaltsjahr = models.IntegerField()
-	jahreserg = models.DecimalField(max_digits=11, decimal_places=2)
+    """
+    Pflichtangabe zum Vorbericht
+    """
+    gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
+    haushaltsjahr = models.IntegerField()
+    jahreserg = models.DecimalField(max_digits=11, decimal_places=2)
 
 class InvestKreditentwicklung(models.Model):
 	
@@ -241,11 +255,11 @@ class InvestKreditentwicklung(models.Model):
 	
 
 class LiqKreditentwicklung(models.Model):
-	gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE,)
-	haushaltsjahr = models.IntegerField()
-anfangsbestand = models.DecimalField(max_digits=11, decimal_places=2)
-aufnahme = models.DecimalField(max_digits=11, decimal_places=2)
-tilgung = models.DecimalField(max_digits=11, decimal_places=2)
+    gemeinde = models.ForeignKey(Gemeinde, on_delete=models.CASCADE)
+    haushaltsjahr = models.IntegerField()
+    anfangsbestand = models.DecimalField(max_digits=11, decimal_places=2)
+    aufnahme = models.DecimalField(max_digits=11, decimal_places=2)
+    tilgung = models.DecimalField(max_digits=11, decimal_places=2)
 
 
 class Investitionsentwicklung(models.Model):

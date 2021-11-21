@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h3 class="pt-3 mb-5">Grunddaten für den kommunalen Finanzausgleich</h3>
+<p>Geben Sie bitte die Daten des Haushaltsrundschreibens oder die Orientierungsdaten des statistischen Landesamtes ein</p>
+<br>
+<form action="", method="POST">
+    {%csrf_token%}
+
+    {{ form|crispy }}
+
+    <input type="submit" value="speichern" class="btn btn-outline-dark">
+</form>
+
+
+{%endblock%}

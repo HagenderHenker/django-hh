@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from .models import Datafiles, Haushalt
-from .forms import Datafile_form
+from .forms import Datafile_form, KFABerechnungsgrundlagen_form, Steuerkraftgrunddaten_form, Steuerkraft_form
 from django.views.generic import ListView
 
 # Create your views here.
@@ -76,7 +76,23 @@ def haushaltsgrunddaten(request):
 
 # Kommunaler Finanzausgleich
 
-
+def kfagrunddaten(request):
+    if request.method == "GET":
+        gde = request.session["hhgdenr"] 
+        jahr = request.session["hhjahr"]       
+        kfagrunddaten = Haushalt.objects.filter(haushaltsjahr__exact=jahr)
+        #if kfagrunddaten:
+        kfagrunddaten_form = KFABerechnungsgrundlagen_form()
+            
+            
+        context = {"form":kfagrunddaten_form}
+        return render(request, 'hhapp/kfagrunddaten.html', context)
+    
+    if request.method == "POST":
+        form = KFABerechnungsgrundlagen_form(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('home')
 
 
 # 
