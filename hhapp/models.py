@@ -219,7 +219,7 @@ class SonderumlageGSgrundlagen(models.Model):
     
 
 
-# Modelle für Gesamtübersichten
+# Modelle für die Haushaltsstatistik
 
 class Eigenkapital(models.Model):
     """
